@@ -1,13 +1,13 @@
 org: fernando
 app: studio-surveys
-service: surveys
+service: surveys-node
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: nodejs12.x
   region: us-east-1
   environment:
-    DYNAMODB_TABLE: gss
+    DYNAMODB_TABLE: studio-surveys
   iamRoleStatements:
     - Effect: Allow
       Action:
