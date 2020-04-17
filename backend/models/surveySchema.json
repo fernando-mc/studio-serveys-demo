@@ -1,0 +1,57 @@
+{
+    "$schema":"http://json-schema.org/draft-04/schema#",
+    "definitions":{
+       "customer_id":{
+          "type":"string",
+          "title":"The Survey ID",
+          "pattern":"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+       },
+       "question":{
+          "type":"object",
+          "properties":{
+             "question_number":{
+                "type":"string",
+                "pattern":"^[0-9]+$"
+             },
+             "question_type":{
+                "type":"string",
+                "enum":[
+                   "text",
+                   "rating"
+                ]
+             },
+             "question":{
+                "type":"string",
+                "minLength":10,
+                "maxLength":500
+             }
+          },
+          "required":[
+             "question_number",
+             "question_type",
+             "question"
+          ]
+       }
+    },
+    "type":"object",
+    "title":"The Root Schema",
+    "required":[
+       "survey_data",
+       "customer_id"
+    ],
+    "properties":{
+       "customer_id":{
+          "$ref":"#/definitions/customer_id"
+       },
+       "survey_data":{
+          "type":"array",
+          "minItems":1,
+          "maxItems":15,
+          "uniqueItems":true,
+          "title":"The question array holding questions",
+          "items":{
+             "$ref":"#/definitions/question"
+          }
+       }
+    }
+  }
